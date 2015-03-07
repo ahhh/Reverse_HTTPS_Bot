@@ -7,6 +7,6 @@
   - requests
 
 #### Gotchyas:
-  - don't have an official c2 server yet
+  - doesn't have an official c2 server yet
 
 #### Moar Info:
