@@ -2,9 +2,10 @@
 
 #### Description:
   A python based https remote access trojan for penetration testing.
+  Server is currently NodeJS based
 
-#### Requires:
+#### Bot Requires:
   - requests
 
-#### Gotchyas:
-  - doesn't have an official c2 server yet
+#### Server Requires:
+  - an ssl certificate and ssl key
