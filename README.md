@@ -8,4 +8,4 @@
   - requests
 
 #### Server Requires:
-  - an ssl certificate and ssl key
+  - ssl certificate and key
