@@ -6,7 +6,7 @@
   Server is currently NodeJS based
 
 #### Bot Requires:
-  - requests
+  - pip install requests
 
 #### Server Requires:
   - ssl certificate and key
