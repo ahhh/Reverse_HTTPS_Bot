@@ -1,4 +1,4 @@
-# Reverse_HTTPS_Bot 0.3
+# Reverse_HTTPS_Bot 0.6
 
 #### Description:
   A python based https remote access trojan for penetration testing.
