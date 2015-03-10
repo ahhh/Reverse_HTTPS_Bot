@@ -1,6 +1,6 @@
 {
   "name": "Reverse_HTTPS_Bot",
-  "version": "0.0.1",
+  "version": "0.6",
   "description": "#### Description:   A python based https remote access trojan for penetration testing.",
   "main": "server.js",
   "scripts": {
