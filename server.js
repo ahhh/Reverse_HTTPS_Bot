@@ -56,7 +56,7 @@ server.post('/cmdUpdate', function(req, res) {
 // Bot Command
 server.get('/command', function(req, res) {
   connectionInitialized(req, res);
-  fs.readFile('./command', function(err, content) {
+  fs.readFile('./admin/command', function(err, content) {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(content, 'utf-8');
   });
