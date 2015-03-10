@@ -1,7 +1,7 @@
 var restify = require('restify');
 var userSave = require('save')('user');
 
-var ADMIN_HOST = 'localhost';
+var ADMIN_HOST = '127.0.0.1';
 var fs = require('fs');
 var https = require('https');
 
@@ -14,7 +14,7 @@ var server = restify.createServer({
 });
 
 server.use(function checkIP (req, res, next) {
-  if (ADMIN_HOST !== req.headers.host) {
+  if (ADMIN_HOST !== req.connection.remoteAddress) {
     console.log("Unauthorized IP: " + req.ip);
     res.send("Unauthorized.");
   }
