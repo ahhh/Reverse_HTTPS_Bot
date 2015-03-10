@@ -9,7 +9,8 @@
   - pip install requests
 
 #### Server Requires:
-  - ssl certificate and key
+  - sh setup.sh
+  - sudo npm install (restify)
 
 #### Instructions for generating ssl cert and key for testing
   - openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
