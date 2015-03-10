@@ -1,6 +1,7 @@
 var restify = require('restify');
 var userSave = require('save')('user');
 
+var ADMIN_HOST = 'localhost';
 var fs = require('fs');
 var https = require('https');
 
@@ -11,6 +12,20 @@ var server = restify.createServer({
   certificate: fs.readFileSync('server.crt'),
   key: fs.readFileSync('server.key'),
 });
+
+server.use(function checkIP (req, res, next) {
+  if (ADMIN_HOST !== req.headers.host) {
+    console.log("Unauthorized IP: " + req.ip);
+    res.send("Unauthorized.");
+  }
+  next();
+});
+
+// Main Controller
+server.get('/', restify.serveStatic({
+  directory: './public',
+  default: 'index.html',
+}));
 
 // Bot Command
 server.get('/command', function(req, res) {
