@@ -1,13 +1,75 @@
 <!doctype html>
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>Index</title>
+  <style>
+  html {
+	min-height: 100%;
+  }
+
+  body {
+	color: lime;
+	background-color: black;
+	font-family: monospace;
+  }
+
+  #hostmenu {
+	display: none;
+	position: absolute;
+	padding: 5px;
+	background-color: black;
+	border: 1px solid #0f0;
+  }
+
+  a {
+	color: lime;
+	text-decoration: none;
+  }
+
+  input {
+	color: lime;
+	font-family: monospace;
+	background-color: #151;
+	border: 1px solid lime;
+  }
+
+  button {
+	color: lime;
+	font-family: monospace;
+	background-color: #151;
+	border: 1px solid lime;
+  }
+
+  .frmHeading {
+	background-color: #151;
+	color: lime;
+	font-weight: bold;
+  }
+
+  .frm {
+	display: none;
+	position: absolute;
+	padding: 5px;
+	background-color: black;
+	border: 1px solid #0f0;
+  }
+
+  hr {
+	height: 1px;
+	border: 1px solid #151;
+  }
+
+  td {
+	padding: 0 15px 0 0;
+  }
+  </style>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Server</title>
 </head>
 <body>
 
 <form name="cmdUpdate" method="post" action="/cmdUpdate">
-  <input type="text" id="cmd" value="cmd"></input>
+  <input type="text" id="cmd" value="sleep 10"></input>
   <input type="submit" id="submit" value="submit"></input>
 </form>
 
