@@ -24,8 +24,8 @@ server.get('/command', function(req, res) {
 
 // Post of Bot Output
 server.post('/out', function(req, res) {
-  console.log("Writing Output.");
-  //Reassemble body of post
+  var date = new Date();  
+  console.log("Command Recieved:", date, res.connection.remoteAddress, req.url, req.headers['user-agent']);
   var body = "";
     req.on('data', function (chunk) {
     body += chunk;
