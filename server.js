@@ -15,7 +15,8 @@ var server = restify.createServer({
 // Bot Command
 server.get('/command', function(req, res) {
   var date = new Date();  
-  console.log("Command Recieved:", date, res.connection.remoteAddress, req.url, req.headers['user-agent']);
+  console.log("Command Recieved:", date, res.connection.remoteAddress,
+              req.url, req.headers['user-agent']);
   fs.readFile('./command', function(err, content) {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(content, 'utf-8');
@@ -25,7 +26,8 @@ server.get('/command', function(req, res) {
 // Post of Bot Output
 server.post('/out', function(req, res) {
   var date = new Date();  
-  console.log("Command Recieved:", date, res.connection.remoteAddress, req.url, req.headers['user-agent']);
+  console.log("Command Recieved:", date, res.connection.remoteAddress,
+              req.url, req.headers['user-agent']);
   var body = "";
     req.on('data', function (chunk) {
     body += chunk;
@@ -42,8 +44,5 @@ server.post('/out', function(req, res) {
 });
 
 server.listen(PORT, function() {
-  //log all access requests
   console.log("Listening on port "+PORT+"....");
-  //var date = new Date();
-  //console.log('request:', date, req.url, req.headers['user-agent']);
 });
