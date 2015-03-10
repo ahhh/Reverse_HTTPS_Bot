@@ -14,8 +14,8 @@ var server = restify.createServer({
 
 // Bot Command
 server.get('/command', function(req, res) {
-  console.log("Command Recieved...");
-  // @TODO - Add in: Timestamp, IP, URL, User-Agent
+  var date = new Date();  
+  console.log("Command Recieved:", date, res.connection.remoteAddress, req.url, req.headers['user-agent']);
   fs.readFile('./command', function(err, content) {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(content, 'utf-8');
