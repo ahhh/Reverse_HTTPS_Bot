@@ -43,9 +43,14 @@ server.get('/admin', function(req, res) {
 
 // Cmd Update
 server.post('/cmdUpdate', function(req, res) {
-  console.dir(req.headers);
   connectionInitialized(req, res);
-  console.log(req.body, req.params);
+  if (checkIP(req)) {
+    //console.log(req.body, req.params);
+  }else {
+   // res.write("Unauthorized"); 
+  }
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end('ok', 'utf-8');
 });
 
 // Bot Command
