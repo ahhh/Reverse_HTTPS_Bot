@@ -1,0 +1,19 @@
+{
+  "name": "Reverse_HTTPS_Bot",
+  "version": "0.0.1",
+  "description": "#### Description:   A python based https remote access trojan for penetration testing.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahhh/Reverse_HTTPS_Bot"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ahhh/Reverse_HTTPS_Bot/issues"
+  },
+  "homepage": "https://github.com/ahhh/Reverse_HTTPS_Bot"
+}
