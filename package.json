@@ -1,6 +1,6 @@
 {
   "name": "Reverse_HTTPS_Bot",
-  "version": "0.6",
+  "version": "0.6.0",
   "description": "#### Description:   A python based https remote access trojan for penetration testing.",
   "main": "server.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ahhh/Reverse_HTTPS_Bot",
   "dependencies": {
+    "express": "^4.12.2",
     "restify": "^2.8.5",
     "save": "^2.1.0"
   }

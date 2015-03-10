@@ -8,30 +8,49 @@ var https = require('https');
 var PORT = 443;
 
 var server = restify.createServer({
-  name: 'BAPI',
   certificate: fs.readFileSync('server.crt'),
   key: fs.readFileSync('server.key'),
 });
 
-server.use(function checkIP (req, res, next) {
-  if (ADMIN_HOST !== req.connection.remoteAddress) {
-    console.log("Unauthorized IP: " + req.ip);
-    res.send("Unauthorized.");
+//server.use(restify.bodyParser());
+
+function checkIP (req) {
+  return ADMIN_HOST === req.connection.remoteAddress;
+}
+
+var connectionInitialized = function(req, res) {
+  var date = new Date();  
+  console.log("Connection Recieved:", date, res.connection.remoteAddress,
+              req.url, req.headers['user-agent']);
+};
+
+// Admin Controller
+server.get('/admin', function(req, res) {
+  connectionInitialized(req, res);
+  if (checkIP(req)) {
+    var html = fs.readFileSync('./admin/index.html', 'utf-8');
+    res.writeHead(200, {
+      'Content-Length': Buffer.byteLength(html),
+      'Content-Type': 'text/html'
+    });
+    res.write(html);
+    res.end();
+  } else {
+    res.send("Unauthorized"); 
   }
-  next();
 });
 
-// Main Controller
-server.get('/', restify.serveStatic({
-  directory: './public',
-  default: 'index.html',
-}));
+
+// Cmd Update
+server.post('/cmdUpdate', function(req, res) {
+  console.dir(req.headers);
+  connectionInitialized(req, res);
+  console.log(req.body, req.params);
+});
 
 // Bot Command
 server.get('/command', function(req, res) {
-  var date = new Date();  
-  console.log("Command Recieved:", date, res.connection.remoteAddress,
-              req.url, req.headers['user-agent']);
+  connectionInitialized(req, res);
   fs.readFile('./command', function(err, content) {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(content, 'utf-8');
@@ -40,18 +59,15 @@ server.get('/command', function(req, res) {
 
 // Post of Bot Output
 server.post('/out', function(req, res) {
-  var date = new Date();  
-  console.log("Command Recieved:", date, res.connection.remoteAddress,
-              req.url, req.headers['user-agent']);
+  connectionInitialized(req, res);
   var body = "";
     req.on('data', function (chunk) {
     body += chunk;
   });
-  //Write post to file  
-  var stream = fs.createWriteStream("out.txt");  
-  stream.once('open', function() {
-    stream.write(body);
-    stream.end();
+  //Write post to file
+  fs.createWriteStream("out.txt").once('open', function() {
+    this.write(body);
+    this.end();
   });
   //Return 200
   res.writeHead(200, { 'Content-Type': 'text/html' });
