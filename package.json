@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/ahhh/Reverse_HTTPS_Bot/issues"
   },
-  "homepage": "https://github.com/ahhh/Reverse_HTTPS_Bot"
+  "homepage": "https://github.com/ahhh/Reverse_HTTPS_Bot",
+  "dependencies": {
+    "restify": "^2.8.5",
+    "save": "^2.1.0"
+  }
 }
