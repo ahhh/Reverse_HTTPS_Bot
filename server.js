@@ -70,7 +70,7 @@ server.post('/out', function(req, res) {
     body += chunk;
   });
   //Write post to file
-  fs.createWriteStream("out.txt").once('open', function() {
+  fs.createWriteStream("./admin/out.txt").once('open', function() {
     this.write(body);
     this.end();
   });
