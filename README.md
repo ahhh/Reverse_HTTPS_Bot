@@ -1,4 +1,4 @@
-# Reverse_HTTPS_Bot 0.6
+# Reverse_HTTPS_Bot 0.7
 
 #### Description:
   A python based https remote access trojan for penetration testing.
@@ -10,7 +10,7 @@
 
 #### Server Requires:
   - sh setup.sh (to generate self signed certificate and key for testing)
-  - sudo npm install (restify, express, lodash, save, sockjs)
+  - sudo npm install (restify, express, lodash, save, sockjs, body-parser)
   - don't forget to change your server ip in the new SockJS object in index.html!
 
   
