@@ -1,4 +1,4 @@
-#https_bot v0.6
+#https_bot v0.7
 import requests
 import logging
 import subprocess
