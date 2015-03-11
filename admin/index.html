@@ -55,19 +55,42 @@
   td {
 	padding: 0 15px 0 0;
   }
+  #wrapper {
+    width: 500px;
+    border: 1px solid black;
+    overflow: hidden; /* add this to contain floated children */
+	}
+  #main {
+    width: 250px;
+    float:left; /* add this */
+    border: 1px solid black;
+	}
+  #commands {
+    border: 1px solid black;
+    float: left; /* add this */
+	}
   </style>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Server</title>
 </head>
 <body>
+<div id="wrapper">
+ <div id="main">
+  <form name="cmdUpdate" method="post" action="/cmdUpdate">
+    <input type="text" id="cmd" value=""></input>
+    <input type="submit" id="submit" value="submit"></input>
+  </form>
+  <div class="output"></div>
+ </div>
 
-<form name="cmdUpdate" method="post" action="/cmdUpdate">
-  <input type="text" id="cmd" value=""></input>
-  <input type="submit" id="submit" value="submit"></input>
-</form>
-
-<div class="output"></div>
+ <div id="commands">
+ 	<b>Commands:</b>
+ 	<li>execute [shell command]
+ 	<li>download [url]
+ 	<li>sleep [seconds]
+ </div>
+</div>
 
 <script>var sock = new SockJS('https://127.0.0.1/websocket');
  sock.onopen = function() {
