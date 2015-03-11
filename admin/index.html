@@ -1,17 +1,18 @@
 <!doctype html>
+<script src="socks.js"></script>
+<script src="jquery.js"></script>
+
 <html>
 <head>
   <style>
   html {
 	min-height: 100%;
   }
-
   body {
 	color: lime;
 	background-color: black;
 	font-family: monospace;
   }
-
   #hostmenu {
 	display: none;
 	position: absolute;
@@ -19,32 +20,27 @@
 	background-color: black;
 	border: 1px solid #0f0;
   }
-
   a {
 	color: lime;
 	text-decoration: none;
   }
-
   input {
 	color: lime;
 	font-family: monospace;
 	background-color: #151;
 	border: 1px solid lime;
   }
-
   button {
 	color: lime;
 	font-family: monospace;
 	background-color: #151;
 	border: 1px solid lime;
   }
-
   .frmHeading {
 	background-color: #151;
 	color: lime;
 	font-weight: bold;
   }
-
   .frm {
 	display: none;
 	position: absolute;
@@ -52,12 +48,10 @@
 	background-color: black;
 	border: 1px solid #0f0;
   }
-
   hr {
 	height: 1px;
 	border: 1px solid #151;
   }
-
   td {
 	padding: 0 15px 0 0;
   }
@@ -69,9 +63,25 @@
 <body>
 
 <form name="cmdUpdate" method="post" action="/cmdUpdate">
-  <input type="text" id="cmd" value="sleep 10"></input>
+  <input type="text" id="cmd" value=""></input>
   <input type="submit" id="submit" value="submit"></input>
 </form>
+
+<div class="output"></div>
+
+<script>var sock = new SockJS('https://127.0.0.1/websocket');
+ sock.onopen = function() {
+     console.log('open');
+     sock.send('test');
+ };
+ sock.onmessage = function(e) {
+     console.log('message', e.data);
+     $('.output').text(e.data)
+ };
+ sock.onclose = function() {
+     console.log('close');
+ };
+ </script>
 
 </body>
 </html>
