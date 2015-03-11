@@ -49,7 +49,9 @@ server.post('/cmdUpdate', function(req, res) {
   }else {
    // res.write("Unauthorized"); 
   }
-  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.writeHead(302, { 
+  'Location': '/admin',
+  'Content-Type': 'text/html' });
   res.end('ok', 'utf-8');
 });
 
