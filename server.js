@@ -3,6 +3,8 @@ var sockjs = require('sockjs');
 var fs = require('fs');
 var express = require('express');
 var path = require('path');
+var bodyParser = require('body-parser')
+var url = require('url');
 var _ = require('lodash');
 var key = fs.readFileSync('./server.key');
 var cert = fs.readFileSync('./server.crt')
@@ -58,6 +60,7 @@ socket.on('connection', function (client) {
 });
 
 var app = express();
+app.use(bodyParser());
 server = https.createServer(https_options, app);
 
 //The following are all bot api commands
@@ -89,9 +92,15 @@ app.post('/out', function(req, res) {
 });
 
 // Cmd Update
-app.post('/cmdUpdate', function(req, res) {
+app.get('/cmdUpdate', function(req, res) {
   connectionInitialized(req, res);
+  //Make sure only whitelisted IP address can update command
   if (checkIP(req)) {
+  var cmd = url.parse(req.url, true).query['cmd'];
+  fs.createWriteStream("./admin/command").once('open', function() {
+    this.write(cmd);
+    this.end();
+  });
     //console.log(req.body, req.params);
   }else {
    // res.write("Unauthorized"); 
