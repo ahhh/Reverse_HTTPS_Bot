@@ -10,8 +10,8 @@
 
 #### Server Requires:
   - sh setup.sh
-  - don't forget to change your server ip in the new SockJS object in index.html!
   - sudo npm install (restify, express, lodash, save, sockjs)
+  - don't forget to change your server ip in the new SockJS object in index.html!
 
 #### Instructions for generating ssl cert and key for testing
   - openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
