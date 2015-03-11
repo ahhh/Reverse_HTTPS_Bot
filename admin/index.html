@@ -66,7 +66,7 @@
     border: 1px solid black;
 	}
   #commands {
-    border: 1px solid black;
+    border: 10px solid black;
     float: left; /* add this */
 	}
   </style>
@@ -77,9 +77,9 @@
 <body>
 <div id="wrapper">
  <div id="main">
-  <form name="cmdUpdate" method="post" action="/cmdUpdate">
-    <input type="text" id="cmd" value=""></input>
-    <input type="submit" id="submit" value="submit"></input>
+  <form name="cmdUpdate" method="get" action="/cmdUpdate">
+    <input type="text" name="cmd" value=""></input>
+    <input type="submit" name="submit" value="submit"></input>
   </form>
   <div class="output"></div>
  </div>
