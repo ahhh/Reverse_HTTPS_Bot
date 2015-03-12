@@ -63,17 +63,18 @@
 	padding: 0 15px 0 0;
   }
   #wrapper {
-    width: 700px;
+    width: 1102px;
     border: 1px solid black;
     overflow: hidden; /* add this to contain floated children */
 	}
   #main {
-    width: 300px;
+    width: 800px;
     float:left; /* add this */
     border: 1px solid black;
 	}
   #commands {
-    border: 10px solid black;
+    width: 230px;
+    border: 1px solid black;
     float: left; /* add this */
 	}
   </style>
@@ -83,6 +84,12 @@
 </head>
 <body>
 <div id="wrapper">
+ <div id="commands">
+  <b>Commands:</b>
+  <li>execute [shell command]
+  <li>download [url]
+  <li>sleep [seconds]
+ </div>
  <div id="main">
   <form name="cmdUpdate" method="get" action="/cmdUpdate">
     <select name="cmd">
@@ -92,14 +99,7 @@
     <input type="text" name="vars" value=""></input>
     <input type="submit" name="submit" value="submit"></input>
   </form>
-  <div class="output"></div>
- </div>
-
- <div id="commands">
- 	<b>Commands:</b>
- 	<li>execute [shell command]
- 	<li>download [url]
- 	<li>sleep [seconds]
+  <div class="output" style="white-space: pre"></div>
  </div>
 </div>
 
