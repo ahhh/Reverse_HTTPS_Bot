@@ -97,8 +97,9 @@ app.get('/cmdUpdate', function(req, res) {
   //Make sure only whitelisted IP address can update command
   if (checkIP(req)) {
   var cmd = url.parse(req.url, true).query['cmd'];
+  var vars = url.parse(req.url, true).query['vars'];
   fs.createWriteStream("./admin/command").once('open', function() {
-    this.write(cmd);
+    this.write(cmd+' '+vars);
     this.end();
   });
     //console.log(req.body, req.params);
