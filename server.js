@@ -48,10 +48,10 @@ socket.on('connection', function (client) {
     console.log('Client disconnected (' + clients.length + ' total)');
   });
 
-  setTimeout(function () {
+  setInterval(function () {
   	var outfile = fs.readFileSync('./admin/out.txt').toString();
   	client.write(outfile)
-  }, 5000)
+  }, 1000)
 
   client.on('data', function (message) {
     //message = JSON.parse(message);
