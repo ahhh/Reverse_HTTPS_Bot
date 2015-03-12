@@ -82,10 +82,12 @@ app.post('/out', function(req, res) {
     body += chunk;
   });
   //Write post to file
-  fs.createWriteStream("./admin/out.txt").once('open', function() {
-    this.write(body);
-    this.end();
-  });
+fs.open("./admin/out.txt", 'a', 0660, function(err, fd){
+  fs.write(fd, body, null, undefined, function (err, written) {
+  console.log('bytes written to outlog: ' + written);
+});
+
+});
   //Return 200
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.end('ok', 'utf-8');
