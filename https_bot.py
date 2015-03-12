@@ -125,7 +125,7 @@ def main():
   if opts.beacon is None:
     opts.beacon = raw_input("How often should it beacon to C2 server: ")
 
-  # Generate our botID
+  # Generate the botID
   genID()
 
   # Main Event Loop:
