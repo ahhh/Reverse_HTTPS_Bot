@@ -77,13 +77,14 @@ app.get('/command', function(req, res) {
 // Post of Bot Output
 app.post('/out', function(req, res) {
   connectionInitialized(req, res);
+  var date = new Date();  
   var body = "";
     req.on('data', function (chunk) {
     body += chunk;
   });
   //Write post to file
 fs.open("./admin/out.txt", 'a', 0660, function(err, fd){
-  fs.write(fd, body, null, undefined, function (err, written) {
+  fs.write(fd, date +', '+body, null, undefined, function (err, written) {
   console.log('bytes written to outlog: ' + written);
 });
 
