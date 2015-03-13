@@ -49,7 +49,7 @@ socket.on('connection', function (client) {
   });
 
   setInterval(function () {
-  	var outfile = fs.readFileSync('./admin/out.txt').toString();
+  	var outfile = fs.readFileSync('out.csv').toString();
   	client.write(outfile)
   }, 1000)
 
@@ -75,7 +75,7 @@ app.get('/command', function(req, res) {
 });
 
 // Post of Bot Output
-app.post('/out', function(req, res) {
+app.post('/out.csv', function(req, res) {
   connectionInitialized(req, res);
   var date = new Date();  
   var body = "";
@@ -83,7 +83,7 @@ app.post('/out', function(req, res) {
     body += chunk;
   });
   //Write post to file
-fs.open("./admin/out.txt", 'a', 0660, function(err, fd){
+fs.open("out", 'a', 0660, function(err, fd){
   fs.write(fd, date +', '+body, null, undefined, function (err, written) {
   console.log('bytes written to outlog: ' + written);
 });
