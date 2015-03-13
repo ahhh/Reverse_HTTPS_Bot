@@ -75,7 +75,7 @@ app.get('/command', function(req, res) {
 });
 
 // Post of Bot Output
-app.post('/out.csv', function(req, res) {
+app.post('/out', function(req, res) {
   connectionInitialized(req, res);
   var date = new Date();  
   var body = "";
@@ -83,7 +83,7 @@ app.post('/out.csv', function(req, res) {
     body += chunk;
   });
   //Write post to file
-fs.open("out", 'a', 0660, function(err, fd){
+fs.open("out.csv", 'a', 0660, function(err, fd){
   fs.write(fd, date +', '+body, null, undefined, function (err, written) {
   console.log('bytes written to outlog: ' + written);
 });
