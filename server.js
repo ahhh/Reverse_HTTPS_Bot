@@ -33,8 +33,8 @@ function checkIP (req) {
 
 var connectionInitialized = function(req, res) {
   var date = new Date();  
-  console.log("Connection Recieved:", date, res.connection.remoteAddress,
-              req.url, req.headers['user-agent']);
+  console.log("Connection Recieved:", date, res.connection.remoteAddress, 
+    req.method, req.url, req.headers['user-agent']);
 };
 
 socket.on('connection', function (client) {
