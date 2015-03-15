@@ -80,7 +80,7 @@
   </style>
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Server</title>
+<title>Admin</title>
 </head>
 <body>
 <div id="wrapper">
@@ -106,7 +106,7 @@
 <script>var sock = new SockJS('https://127.0.0.1/websocket');
  sock.onopen = function() {
      console.log('open');
-     sock.send('test');
+     //sock.send('test');
  };
  sock.onmessage = function(e) {
      console.log('message', e.data);
