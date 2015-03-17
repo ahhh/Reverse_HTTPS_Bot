@@ -104,7 +104,7 @@ def main():
 
   # Option to query a specific server
   optp.add_option("-s", "--server", dest="server",
-                  help="HTTPS server to query")
+                  help="HTTPS server to query <127.0.0.1>")
   # Option to use client certificates
   optp.add_option("-c", "--cert", dest="cert",
                   help="public certificate")
@@ -113,10 +113,10 @@ def main():
                   help="certificate key")
   # How often should the victim beacon
   optp.add_option("-b", "--beacon", dest="beacon",
-                  help="sleep between beacons in seconds")
+                  help="sleep between beacons in seconds <10>")
   # Which proxy to use
   optp.add_option("-p", "--proxy", dest="proxy",
-                  help="proxy server address, credentials and port <127.0.0.1:8080>")
+                  help="proxy server address, credentials and port <https://localhost:8080>")
 
   opts, args = optp.parse_args()
 
