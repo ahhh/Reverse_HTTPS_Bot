@@ -116,7 +116,7 @@ def main():
                   help="sleep between beacons in seconds")
   # Which proxy to use
   optp.add_option("-p", "--proxy", dest="proxy",
-                  help="sleep between beacons in seconds")
+                  help="proxy server address, credentials and port <127.0.0.1:8080>")
 
   opts, args = optp.parse_args()
 
