@@ -7,6 +7,7 @@
 
 #### Bot Requires:
   - pip install requests
+  - pip install pyscreenshot
 
 #### Server Requires:
   - sh setup.sh (to generate self signed certificate and key for testing)
